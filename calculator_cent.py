@@ -3,8 +3,8 @@ import streamlit as st
 # Konfigurasi Halaman
 st.set_page_config(page_title="Kalkulator Resiko XAUUSD Cent", layout="wide")
 
-st.markdown("<h2 style='text-align: center;'>⚖️ Kalkulator Risiko XAUUSD (Akun Cent)</h3>", unsafe_allow_html=True)
-st.markdown("Masukkan Lot Size yang ingin Anda gunakan untuk melihat seberapa besar risiko uang dan persentasenya terhadap saldo akun.")
+st.markdown("<h2 style='text-align: center;'>⚖️ Kalkulator Resiko XAUUSD (Akun Cent)</h3>", unsafe_allow_html=True)
+st.markdown("Masukkan Lot Size yang ingin Anda gunakan untuk melihat seberapa besar resiko uang dan persentasenya terhadap saldo akun.")
 
 st.divider()
 
@@ -24,7 +24,7 @@ with col2:
 NILAI_PIP_PER_LOT = 10.0 
 
 st.write("") # Spacing
-if st.button("Hitung Risiko", type="primary", use_container_width=True):
+if st.button("Hitung Resiko", type="primary", use_container_width=True):
     
     # 1. Hitung nilai nominal per 1 pip dari lot yang diinput
     nilai_pip_aktual = lot_size * NILAI_PIP_PER_LOT
@@ -34,16 +34,16 @@ if st.button("Hitung Risiko", type="primary", use_container_width=True):
     
     # 3. Hitung persentase kerugian dari saldo
     if saldo > 0:
-        risiko_persen = (risk_uang / saldo) * 100
+        resiko_persen = (risk_uang / saldo) * 100
     else:
-        risiko_persen = 0.0
+        resiko_persen = 0.0
         
     st.success("Kalkulasi Berhasil!")
     
     # Menampilkan output dengan layout metrik yang baru
     res1, res2, res3 = st.columns(3)
-    res1.metric("Risiko Uang", f"{risk_uang:.2f} USC")
-    res2.metric("Risiko Persentase", f"{risiko_persen:.2f} %")
+    res1.metric("Resiko Uang", f"{risk_uang:.2f} USC")
+    res2.metric("Resiko Persentase", f"{resiko_persen:.2f} %")
     res3.metric("Nilai per Pip", f"{nilai_pip_aktual:.2f} USC")
     
-    st.info(f"💡 **Catatan Eksekusi:** Dengan open posisi sebesar {lot_size:.2f} Lot, jika stop loss Anda tersentuh ({sl_pips} pips), saldo Anda akan berkurang sebesar {risk_uang:.2f} USC, yang berarti akun Anda mengalami minus {risiko_persen:.2f}%.")
+    st.info(f"💡 **Catatan Eksekusi:** Dengan open posisi sebesar {lot_size:.2f} Lot, jika stop loss Anda tersentuh ({sl_pips} pips), saldo Anda akan berkurang sebesar {risk_uang:.2f} USC, yang berarti akun Anda mengalami minus {resiko_persen:.2f}%.")
